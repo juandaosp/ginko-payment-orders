@@ -56,6 +56,7 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `types/index.ts`: Definición de interfaces (`PaymentOrder`) y tipos (`OrderStatus`) para consistencia de datos en toda la aplicación.
 - `services/orderService.ts`: Implementación de lógica de Mock para simulación de consumo de API.
 - `stores/orders.ts`: Store de Pinia para la gestión del estado global de las órdenes (listado y carga).
+- `composables/useApi.ts`: Composable genérico para el manejo unificado de estados de carga, error y datos en llamadas asíncronas.
 - `composables/`: (Pendiente) Lógica reutilizable como `useApi`.
 - `components/`: (Pendiente) Componentes de UI.
 - `services/`: (Pendiente) Configuración del Mock API (MSW).
