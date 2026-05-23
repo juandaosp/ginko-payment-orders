@@ -27,6 +27,9 @@ Aunque inicialmente se consideró una configuración estándar de Vite + Vue, se
 ### 3. Consumo de API
 * Se implementó un composable centralizado `useApi`. Esto unifica el manejo de los estados `loading`, `error` y `data`, garantizando una experiencia de usuario (UX) consistente en todos los puntos de la aplicación.
 
+### 4. Estilos y Diseño
+* **Tailwind CSS:** Se integró `@nuxtjs/tailwindcss` para la estilización rápida y consistente de la interfaz, permitiendo un desarrollo de componentes eficiente y mantenible.
+
 ## 🛠 Instrucciones de Instalación
 
 1. **Clonar el repositorio:**
@@ -57,6 +60,7 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `services/orderService.ts`: Implementación de lógica de Mock para simulación de consumo de API.
 - `stores/orders.ts`: Store de Pinia para la gestión del estado global de las órdenes (listado y carga).
 - `composables/useApi.ts`: Composable genérico para el manejo unificado de estados de carga, error y datos en llamadas asíncronas.
+- `assets/css/main.css`: Archivo de estilos base donde se importan las directivas de Tailwind CSS.
 - `composables/`: (Pendiente) Lógica reutilizable como `useApi`.
 - `components/`: (Pendiente) Componentes de UI.
 - `services/`: (Pendiente) Configuración del Mock API (MSW).
