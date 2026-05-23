@@ -64,3 +64,12 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `composables/`: (Pendiente) Lógica reutilizable como `useApi`.
 - `components/`: (Pendiente) Componentes de UI.
 - `services/`: (Pendiente) Configuración del Mock API (MSW).
+
+## 📁 Estructura de Componentes
+Para garantizar la escalabilidad y el testing unitario, hemos desacoplado la interfaz en componentes atómicos:
+
+- `components/OrderList.vue`: Componente orquestador que gestiona la vista de tabla (Desktop) y tarjetas (Mobile).
+- `components/OrderRow.vue`: Representación de fila para la tabla de órdenes.
+- `components/OrderCard.vue`: Representación de tarjeta para dispositivos móviles.
+- `components/StatusBadge.vue`: Componente visual para la representación de estados (`Borrador`, `Aprobada`, etc).
+- `components/LoadingState.vue`, `ErrorState.vue`, `EmptyState.vue`: Componentes de estado de UI para mejorar la experiencia de usuario.
