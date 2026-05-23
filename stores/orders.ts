@@ -11,6 +11,7 @@ export const useOrderStore = defineStore("orders", {
   actions: {
     async loadOrders() {
       this.loading = true;
+
       try {
         this.orders = await fetchOrders();
       } catch (err) {
