@@ -9,10 +9,15 @@
 
 <script setup lang="ts">
 const router = useRouter();
+const orderStore = useOrderStore();
 
-const handleSuccess = () => {
-    router.push("/");
+const handleSuccess = async (values: any) => {
+    try {
+        await orderStore.createOrder(values);
+        router.push("/");
+    } catch (error) {
+        // El formulario ya maneja el apiError internamente,
+        // aquí solo manejamos la navegación
+    }
 };
-
-defineExpose({ handleSuccess });
 </script>

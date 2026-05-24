@@ -1,0 +1,82 @@
+import { http, HttpResponse } from "msw";
+import type { PaymentOrder } from "~/types";
+
+const STORAGE_KEY = "ginko_orders";
+
+// Inicializa localStorage si está vacío con los datos semilla
+const initializeDb = (): PaymentOrder[] => {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) return JSON.parse(stored);
+
+  const initialData: PaymentOrder[] = [
+    {
+      id: "1",
+      providerName: "Ginko",
+      amount: 50000,
+      concept: "Pago inicial",
+      status: "APROBADA",
+      createdAt: "1998-10-15",
+    },
+    {
+      id: "2",
+      providerName: "Test Provider 1",
+      amount: 10000,
+      concept: "Pago 1",
+      status: "RECHAZADA",
+      createdAt: "2018-12-12",
+    },
+    {
+      id: "3",
+      providerName: "Test Provider 2",
+      amount: 5690000,
+      concept: "Pago 2",
+      status: "BORRADOR",
+      createdAt: "2019-08-20",
+    },
+    {
+      id: "4",
+      providerName: "Test Provider 3",
+      amount: 5690000,
+      concept: "Pago 3",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
+  ];
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(initialData));
+  return initialData;
+};
+
+const getStoredOrders = (): PaymentOrder[] =>
+  JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+const saveStoredOrders = (orders: PaymentOrder[]) =>
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+
+// Carga inicial
+initializeDb();
+
+export const handlers = [
+  // Listar órdenes
+  http.get("/api/orders", () => {
+    return HttpResponse.json(getStoredOrders());
+  }),
+
+  // Crear orden
+  http.post("/api/orders", async ({ request }) => {
+    const body = (await request.json()) as any;
+    const orders = getStoredOrders();
+
+    const newOrder: PaymentOrder = {
+      id: Date.now().toString(),
+      providerName: body.provider,
+      amount: body.amount,
+      concept: body.concept,
+      status: "BORRADOR",
+      createdAt: new Date().toISOString().split("T")[0],
+    };
+
+    orders.unshift(newOrder);
+    saveStoredOrders(orders);
+
+    return HttpResponse.json(newOrder, { status: 201 });
+  }),
+];

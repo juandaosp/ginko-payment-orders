@@ -5,6 +5,6 @@ export interface PaymentOrder {
   providerName: string;
   amount: number; // En pesos colombianos
   concept: string;
-  createdAt: string; // ISO Date string
+  createdAt?: string; // ISO Date string
   status: OrderStatus;
 }
