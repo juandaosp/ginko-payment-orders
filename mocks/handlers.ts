@@ -40,6 +40,78 @@ const initializeDb = (): PaymentOrder[] => {
       status: "PAGADA",
       createdAt: "2015-05-15",
     },
+
+    {
+      id: "6",
+      providerName: "Test Provider 5",
+      amount: 965425,
+      concept: "Pago 5",
+      status: "BORRADOR",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "7",
+      providerName: "Test Provider 6",
+      amount: 5690000,
+      concept: "Pago 7",
+      status: "APROBADA",
+      createdAt: "2015-12-15",
+    },
+
+    {
+      id: "8",
+      providerName: "Test Provider 2",
+      amount: 5999200,
+      concept: "Pago 9",
+      status: "RECHAZADA",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "9",
+      providerName: "Test Provider 9",
+      amount: 5690000,
+      concept: "Pago 9",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "10",
+      providerName: "Test Provider 10",
+      amount: 958710,
+      concept: "Pago 10",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "4",
+      providerName: "Test Provider 3",
+      amount: 5690000,
+      concept: "Pago 3",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "4",
+      providerName: "Test Provider 3",
+      amount: 5690000,
+      concept: "Pago 3",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
+
+    {
+      id: "4",
+      providerName: "Test Provider 3",
+      amount: 5690000,
+      concept: "Pago 3",
+      status: "PAGADA",
+      createdAt: "2015-05-15",
+    },
   ];
   localStorage.setItem(STORAGE_KEY, JSON.stringify(initialData));
   return initialData;
