@@ -25,8 +25,17 @@ Aunque inicialmente se consideró una configuración estándar de Vite + Vue, se
 * **Estado Local:** Aplicado para lógica de componentes (validaciones de formularios, estados de UI efímeros), asegurando que los componentes sean altamente reutilizables y desacoplados.
 * **Validación de Formularios:** Se integró vee-validate junto con Zod para definir esquemas de validación tipados. Esto permite validaciones declarativas, feedback en tiempo real y una separación clara entre la interfaz (UI) y la lógica de negocio mediante el composable useOrderForm.
 
-### 3. Consumo de API
-* Se implementó un composable centralizado `useApi`. Esto unifica el manejo de los estados `loading`, `error` y `data`, garantizando una experiencia de usuario (UX) consistente en todos los puntos de la aplicación.
+## 🛠 Desarrollo con Mock Service Worker (MSW)
+Este proyecto utiliza **MSW** para simular la API de órdenes de pago en el entorno de desarrollo. 
+
+- **Persistencia:** Los datos se guardan en el `localStorage` del navegador con la clave `ginko_orders`.
+- **Servicio:** Las llamadas a `/api/orders` son interceptadas automáticamente.
+- **Configuración:**
+    - Plugin de cliente: `plugins/msw.client.ts`
+    - Handlers: `mocks/handlers.ts`
+    - Los mocks solo se activan en `process.env.NODE_ENV === 'development'`.
+
+Para limpiar los datos de prueba, puedes borrar la clave `ginko_orders` en la pestaña *Application* de las DevTools de tu navegador.
 
 ### 4. Estilos y Diseño
 * **Tailwind CSS:** Se integró `@nuxtjs/tailwindcss` para la estilización rápida y consistente de la interfaz, permitiendo un desarrollo de componentes eficiente y mantenible.

@@ -3,7 +3,6 @@ import type { PaymentOrder } from "~/types";
 
 const STORAGE_KEY = "ginko_orders";
 
-// Inicializa localStorage si está vacío con los datos semilla
 const initializeDb = (): PaymentOrder[] => {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored) return JSON.parse(stored);
