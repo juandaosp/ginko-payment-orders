@@ -1,9 +1,13 @@
 import { mount } from "@vue/test-utils";
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { nextTick } from "vue";
 import { createPinia, setActivePinia } from "pinia";
 import IndexPage from "../../pages/index.vue";
 import { useOrderStore } from "../../stores/orders";
 import { mockOrderA } from "../mocks/order";
+import { mountSuspended } from "@nuxt/test-utils/runtime";
+import FilterBar from "~/components/FilterBar.vue";
+import OrderList from "~/components/OrderList.vue";
 
 describe("Index Page", () => {
   beforeEach(() => {
@@ -49,5 +53,18 @@ describe("Index Page", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(spy).toHaveBeenCalled();
+  });
+
+  it("renderiza FilterBar y OrderList", async () => {
+    const wrapper = await mountSuspended(IndexPage);
+    const store = useOrderStore();
+
+    store.loading = false;
+    store.orders = [mockOrderA];
+
+    await nextTick();
+
+    expect(wrapper.findComponent(FilterBar).exists()).toBe(true);
+    expect(wrapper.findComponent(OrderList).exists()).toBe(true);
   });
 });

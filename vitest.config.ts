@@ -1,8 +1,10 @@
+import { fileURLToPath } from "node:url";
 import { defineVitestConfig } from "@nuxt/test-utils/config";
 
 export default defineVitestConfig({
   test: {
-    environment: "jsdom",
+    // Cambia jsdom a nuxt para que los tests de páginas funcionen
+    environment: "nuxt",
     globals: true,
     include: ["tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     coverage: {
@@ -14,6 +16,12 @@ export default defineVitestConfig({
         "composables/**/*.{ts}",
       ],
       reporter: ["text", "json", "html"],
+    },
+    environmentOptions: {
+      nuxt: {
+        rootDir: fileURLToPath(new URL("./", import.meta.url)),
+        domEnvironment: "happy-dom", // Aseguramos explícitamente el uso de happy-dom
+      },
     },
   },
 });

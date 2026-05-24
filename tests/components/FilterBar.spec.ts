@@ -4,25 +4,41 @@ import FilterBar from "../../components/FilterBar.vue";
 
 describe("FilterBar", () => {
   it("emite evento filter-change al escribir en el buscador", async () => {
-    const wrapper = mount(FilterBar);
-    const input = wrapper.find('input[type="text"]');
+    // Pasamos props iniciales para que el componente tenga un estado base
+    const wrapper = mount(FilterBar, {
+      props: { status: "Todos", search: "" },
+    });
 
+    const input = wrapper.find('input[type="text"]');
     await input.setValue("Proveedor X");
 
     expect(wrapper.emitted()).toHaveProperty("filter-change");
-    expect(wrapper.emitted("filter-change")![0][0]).toEqual({
+    const emittedEvents = wrapper.emitted("filter-change");
+
+    expect(Array.isArray(emittedEvents)).toBe(true);
+    expect(emittedEvents?.length).toBeGreaterThan(0);
+    const eventArgs = emittedEvents?.[0];
+    expect(eventArgs).toBeDefined();
+    const payload = eventArgs![0];
+
+    expect(payload).toMatchObject({
       status: "Todos",
       search: "Proveedor X",
     });
   });
 
   it("emite evento filter-change al cambiar el select", async () => {
-    const wrapper = mount(FilterBar);
-    const select = wrapper.find("select");
+    const wrapper = mount(FilterBar, {
+      props: { status: "Todos", search: "" },
+    });
 
+    const select = wrapper.find("select");
     await select.setValue("Aprobada");
 
-    expect(wrapper.emitted("filter-change")![0][0]).toEqual({
+    const emitted = wrapper.emitted("filter-change") ?? [];
+    const payload = emitted[0]?.[0];
+
+    expect(payload).toMatchObject({
       status: "Aprobada",
       search: "",
     });

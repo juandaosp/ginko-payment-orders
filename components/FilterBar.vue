@@ -8,10 +8,15 @@
             >
             <input
                 type="text"
-                v-model="localSearch"
+                :value="search"
+                @input="
+                    $emit('filter-change', {
+                        status,
+                        search: ($event.target as HTMLInputElement).value,
+                    })
+                "
                 placeholder="Buscar por proveedor..."
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
-                @input="emitFilterChange"
             />
         </div>
 
@@ -20,9 +25,14 @@
                 >Estado</label
             >
             <select
-                v-model="localStatus"
+                :value="status"
+                @change="
+                    $emit('filter-change', {
+                        status: ($event.target as HTMLSelectElement).value,
+                        search,
+                    })
+                "
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
-                @change="emitFilterChange"
             >
                 <option value="Todos">Todos</option>
                 <option value="Borrador">Borrador</option>
@@ -35,21 +45,10 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
     status?: string;
     search?: string;
 }>();
 
-const emit = defineEmits(["filter-change"]);
-
-// Estados locales inicializados con props
-const localStatus = ref(props.status || "Todos");
-const localSearch = ref(props.search || "");
-
-const emitFilterChange = () => {
-    emit("filter-change", {
-        status: localStatus.value,
-        search: localSearch.value,
-    });
-};
+defineEmits(["filter-change"]);
 </script>

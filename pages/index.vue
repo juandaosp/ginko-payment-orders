@@ -2,18 +2,19 @@
 import { useOrderStore } from "~/stores/orders";
 
 const ordersStore = useOrderStore();
+const { orders } = storeToRefs(ordersStore);
+const { status, search, filteredOrders, updateFilters } =
+    useOrderFilters(orders);
 
 const handleOrderClick = (order: any) => {
     console.log("Orden seleccionada:", order);
 };
 
 const handleFilterChange = (filters: { status: string; search: string }) => {
-    console.log("Filtros aplicados:", filters);
-    // AQUÍ es donde en el futuro llamaremos a la lógica de filtrado del store
-    // Ejemplo: ordersStore.applyFilters(filters);
+    console.log("Evento recibido en index.vue:", filters);
+    updateFilters(filters.status, filters.search);
 };
 
-// Usamos onMounted para disparar la acción del store
 onMounted(() => {
     ordersStore.loadOrders();
 });
@@ -25,7 +26,11 @@ onMounted(() => {
             Gestión de Órdenes de Pago
         </h1>
 
-        <FilterBar @filter-change="handleFilterChange" />
+        <FilterBar
+            :status="status"
+            :search="search"
+            @filter-change="handleFilterChange"
+        />
 
         <ErrorState
             v-if="ordersStore.error"
@@ -35,11 +40,11 @@ onMounted(() => {
 
         <LoadingState v-else-if="ordersStore.loading" />
 
-        <EmptyState v-else-if="ordersStore.orders.length === 0" />
+        <EmptyState v-else-if="filteredOrders.length === 0" />
 
         <OrderList
             v-else
-            :orders="ordersStore.orders"
+            :orders="filteredOrders"
             @order-click="handleOrderClick"
         />
     </div>
