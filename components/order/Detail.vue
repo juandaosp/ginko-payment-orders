@@ -7,9 +7,11 @@
                 >
                     Detalle de Orden
                 </h2>
-                <p class="text-3xl font-bold text-gray-900">#{{ order.id }}</p>
+                <p class="text-lg md:text-3xl font-bold text-gray-900">
+                    #{{ order.id }}
+                </p>
             </div>
-            <StatusBadge :status="order.status" />
+            <StatusBadge class="hidden md:inline-flex" :status="order.status" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -34,7 +36,7 @@
 
             <div>
                 <h3 class="text-sm font-medium text-gray-500">Monto total</h3>
-                <p class="text-2xl font-bold text-indigo-600">
+                <p class="text-lg md:text-2xl font-bold text-indigo-600">
                     {{ formatCurrency(order.amount) }}
                 </p>
             </div>

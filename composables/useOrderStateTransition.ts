@@ -1,7 +1,6 @@
 import type { OrderStatus } from "~/types";
 
 export const useOrderStateTransition = () => {
-  // Definición de transiciones permitidas
   const transitions: Record<OrderStatus, OrderStatus[]> = {
     BORRADOR: ["APROBADA", "RECHAZADA"],
     APROBADA: ["PAGADA"],

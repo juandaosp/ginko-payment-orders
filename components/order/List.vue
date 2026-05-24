@@ -1,32 +1,3 @@
-<script setup lang="ts">
-import type { PaymentOrder } from "~/types";
-
-const props = defineProps<{ orders: PaymentOrder[] }>();
-const emit = defineEmits(["order-click"]);
-
-const pageSize = 10;
-const currentPage = ref(1);
-
-const paginatedOrders = computed(() => {
-    const start = (currentPage.value - 1) * pageSize;
-    const end = start + pageSize;
-    return props.orders.slice(start, end);
-});
-
-const totalPages = computed(() => Math.ceil(props.orders.length / pageSize));
-
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) currentPage.value++;
-};
-const prevPage = () => {
-    if (currentPage.value > 1) currentPage.value--;
-};
-
-const onOrderClick = (order: PaymentOrder) => {
-    emit("order-click", order);
-};
-</script>
-
 <template>
     <div class="order-list-container">
         <table class="hidden md:table min-w-full divide-y divide-gray-200">
@@ -77,3 +48,32 @@ const onOrderClick = (order: PaymentOrder) => {
         />
     </div>
 </template>
+
+<script setup lang="ts">
+import type { PaymentOrder } from "~/types";
+
+const props = defineProps<{ orders: PaymentOrder[] }>();
+const emit = defineEmits(["order-click"]);
+
+const pageSize = 10;
+const currentPage = ref(1);
+
+const paginatedOrders = computed(() => {
+    const start = (currentPage.value - 1) * pageSize;
+    const end = start + pageSize;
+    return props.orders.slice(start, end);
+});
+
+const totalPages = computed(() => Math.ceil(props.orders.length / pageSize));
+
+const nextPage = () => {
+    if (currentPage.value < totalPages.value) currentPage.value++;
+};
+const prevPage = () => {
+    if (currentPage.value > 1) currentPage.value--;
+};
+
+const onOrderClick = (order: PaymentOrder) => {
+    emit("order-click", order);
+};
+</script>

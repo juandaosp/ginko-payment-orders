@@ -1,12 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-    currentPage: number;
-    totalPages: number;
-}>();
-
-defineEmits(["prev", "next"]);
-</script>
-
 <template>
     <div class="flex justify-center items-center gap-4 mt-6">
         <button
@@ -28,3 +19,12 @@ defineEmits(["prev", "next"]);
         </button>
     </div>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+    currentPage: number;
+    totalPages: number;
+}>();
+
+defineEmits(["prev", "next"]);
+</script>

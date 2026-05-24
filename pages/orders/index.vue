@@ -4,10 +4,6 @@ import { useOrderStore } from "~/stores/orders";
 const ordersStore = useOrderStore();
 const { status, search, filteredOrders, updateFilters } = useOrderFilters();
 
-const handleOrderClick = (order: any) => {
-    console.log("Orden seleccionada:", order);
-};
-
 const onFilterChange = (payload: { status: string; search: string }) => {
     updateFilters(payload.status, payload.search);
 };
@@ -26,8 +22,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="p-8">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">
+    <div class="px-4 md:px-8 max-w-7xl mx-auto">
+        <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">
             Gestión de Órdenes de Pago
         </h1>
 
@@ -47,10 +43,6 @@ onMounted(() => {
 
         <EmptyState v-else-if="filteredOrders.length === 0" />
 
-        <OrderList
-            v-else
-            :orders="filteredOrders"
-            @order-click="handleOrderClick"
-        />
+        <OrderList v-else :orders="filteredOrders" />
     </div>
 </template>
