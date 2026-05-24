@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { PaymentOrder } from "~/types";
-defineProps<{ order: PaymentOrder }>();
-defineEmits(["click"]);
+const props = defineProps<{ order: PaymentOrder }>();
+const emit = defineEmits(["order-click"]);
+const handleClick = () => {
+    emit("order-click", props.order);
+    navigateTo(`/orders/${props.order.id}`);
+};
 </script>
 
 <template>
-    <tr
-        @click="navigateTo(`/orders/${order.id}`)"
-        class="cursor-pointer hover:bg-gray-50"
-    >
+    <tr @click="handleClick" class="cursor-pointer hover:bg-gray-50">
         <td class="px-6 py-4">#{{ order.id }}</td>
         <td class="px-6 py-4">{{ order.providerName }}</td>
         <td class="px-6 py-4"><StatusBadge :status="order.status" /></td>

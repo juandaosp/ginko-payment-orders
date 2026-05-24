@@ -5,8 +5,6 @@ export const useOrderFilters = () => {
   const router = useRouter();
   const store = useOrderStore();
 
-  // Al usar ref con el valor de la query, el estado se inicializa
-  // correctamente al recargar la página.
   const status = ref((route.query.status as string) || "Todos");
   const search = ref((route.query.search as string) || "");
 
@@ -23,7 +21,11 @@ export const useOrderFilters = () => {
   };
 
   const filteredOrders = computed(() => {
-    return store.orders.filter((order) => {
+    // CORRECCIÓN: Usamos el operador de coalescencia nula (??) para asegurar
+    // que siempre trabajamos con un array, aunque sea vacío.
+    const orders = store.orders ?? [];
+
+    return orders.filter((order) => {
       const matchesStatus =
         status.value === "Todos" || order.status === status.value.toUpperCase();
       const matchesSearch = (order.providerName || "")

@@ -1,70 +1,62 @@
 import { mount } from "@vue/test-utils";
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import { nextTick } from "vue";
-import { createPinia, setActivePinia } from "pinia";
-import IndexPage from "../../pages/index.vue";
-import { useOrderStore } from "../../stores/orders";
-import { mockOrderA } from "../mocks/order";
-import { mountSuspended } from "@nuxt/test-utils/runtime";
-import FilterBar from "~/components/FilterBar.vue";
-import OrderList from "~/components/OrderList.vue";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { mockNuxtImport } from "@nuxt/test-utils/runtime";
+import IndexPage from "~/pages/index.vue";
 
-describe("Index Page", () => {
+const { viNavigateTo } = vi.hoisted(() => {
+  return { viNavigateTo: vi.fn() };
+});
+
+mockNuxtImport("navigateTo", () => viNavigateTo);
+
+describe("Root IndexPage (Landing)", () => {
+  // Simplificamos el stub para que emule una etiqueta real con la propiedad personalizada data-to
+  const mountOptions = {
+    global: {
+      stubs: {
+        NuxtLink: {
+          template: '<div class="nuxt-link-stub" :data-to="to"><slot /></div>',
+          props: ["to"],
+        },
+      },
+    },
+  };
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    viNavigateTo.mockClear();
   });
 
-  it("renderiza el componente Loading cuando el store está cargando", async () => {
-    const store = useOrderStore();
-    store.loading = true;
-
-    const wrapper = mount(IndexPage);
-    expect(wrapper.findComponent({ name: "LoadingState" }).exists()).toBe(true);
+  it("renderiza correctamente el título de bienvenida", () => {
+    const wrapper = mount(IndexPage, mountOptions);
+    expect(wrapper.text()).toContain("Bienvenido a Ginko");
   });
 
-  it("renderiza FilterBar y OrderList cuando hay datos", async () => {
-    const store = useOrderStore();
-    store.loading = false;
-    store.orders = [mockOrderA];
+  it("verifica que las rutas de los NuxtLinks sean correctas", () => {
+    const wrapper = mount(IndexPage, mountOptions);
 
-    const wrapper = mount(IndexPage);
-    expect(wrapper.findComponent({ name: "FilterBar" }).exists()).toBe(true);
-    expect(wrapper.findComponent({ name: "OrderList" }).exists()).toBe(true);
+    // Buscamos los elementos por la clase que definimos en el stub
+    const links = wrapper.findAll(".nuxt-link-stub");
+
+    expect(links).toHaveLength(2);
+    expect(links[0].attributes("data-to")).toBe("/orders");
+    expect(links[1].attributes("data-to")).toBe("/orders/create");
   });
 
-  it("ejecuta las funciones de manejo de eventos", async () => {
-    const wrapper = mount(IndexPage);
-
-    const filterBar = wrapper.findComponent({ name: "FilterBar" });
-    await filterBar.vm.$emit("filter-change", {
-      status: "Pagada",
-      search: "Provee",
-    });
+  it("el botón de búsqueda está deshabilitado si el input está vacío", () => {
+    const wrapper = mount(IndexPage, mountOptions);
+    const button = wrapper.find("button");
+    expect(button.attributes("disabled")).toBeDefined();
   });
 
-  it("ejecuta loadOrders al montar la página", async () => {
-    const store = useOrderStore();
-    // Espía la función
-    const spy = vi.spyOn(store, "loadOrders");
+  it("habilita el botón al escribir un ID y llama a navigateTo al hacer clic", async () => {
+    const wrapper = mount(IndexPage, mountOptions);
+    const input = wrapper.find("input");
+    const button = wrapper.find("button");
 
-    mount(IndexPage);
+    await input.setValue("ORD-123");
+    expect(button.attributes("disabled")).toBeUndefined();
 
-    // Espera un tick para asegurar que el onMounted se procesó
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it("renderiza FilterBar y OrderList", async () => {
-    const wrapper = await mountSuspended(IndexPage);
-    const store = useOrderStore();
-
-    store.loading = false;
-    store.orders = [mockOrderA];
-
-    await nextTick();
-
-    expect(wrapper.findComponent(FilterBar).exists()).toBe(true);
-    expect(wrapper.findComponent(OrderList).exists()).toBe(true);
+    await button.trigger("click");
+    expect(viNavigateTo).toHaveBeenCalledWith("/orders/ORD-123");
   });
 });

@@ -1,7 +1,8 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect } from "vitest";
-import OrderCard from "~/components/OrderCard.vue";
-import { mockOrderA, mockOrderB } from "../mocks/order";
+import OrderCard from "~/components/order/Card.vue";
+import { mockOrderA, mockOrderB } from "../../mocks/order";
+
 describe("OrderCard", () => {
   it("muestra la información correcta de la orden", () => {
     const wrapper = mount(OrderCard, { props: { order: mockOrderA } });

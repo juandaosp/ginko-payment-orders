@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect } from "vitest";
-import OrderList from "../../components/OrderList.vue";
-import { mockOrderA, mockOrderB } from "../mocks/order";
+import OrderList from "~/components/order/List.vue";
+import { mockOrderA, mockOrderB } from "../../mocks/order";
 
 describe("OrderList", () => {
   const mockOrders = [mockOrderA, mockOrderB];

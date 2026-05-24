@@ -14,7 +14,7 @@ const orderStore = useOrderStore();
 const handleSuccess = async (values: any) => {
     try {
         await orderStore.createOrder(values);
-        router.push("/");
+        router.push("/order");
     } catch (error) {
         return;
     }

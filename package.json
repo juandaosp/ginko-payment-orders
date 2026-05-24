@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@nuxt/test-utils": "^4.0.3",
+    "@pinia/testing": "^1.0.3",
     "@vitest/coverage-v8": "^4.1.7",
     "@vue/test-utils": "^2.4.10",
     "happy-dom": "^20.9.0",
