@@ -9,7 +9,7 @@
                 v-model="providerName"
                 type="text"
                 placeholder="Nombre del proveedor"
-                class="w-full bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none"
+                class="w-full bg-slate-50 dark:bg-slate-900 dark:text-white p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none"
                 :class="errors.providerName ? 'border-red-500' : ''"
             />
             <p class="text-xs text-red-500 h-4">{{ errors.providerName }}</p>
@@ -24,7 +24,7 @@
                 v-model="amount"
                 type="number"
                 placeholder="0.00"
-                class="w-full bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none"
+                class="w-full bg-slate-50 dark:bg-slate-900 dark:text-white p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none"
                 :class="errors.amount ? 'border-red-500' : ''"
             />
             <p class="text-xs text-red-500 h-4">{{ errors.amount }}</p>
@@ -38,7 +38,7 @@
             <textarea
                 v-model="concept"
                 placeholder="Detalles..."
-                class="w-full bg-slate-50 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none h-32"
+                class="w-full bg-slate-50 dark:bg-slate-900 dark:text-white p-3 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-ginko outline-none h-32"
                 :class="errors.concept ? 'border-red-500' : ''"
             ></textarea>
             <p class="text-xs text-red-500 h-4">{{ errors.concept }}</p>
