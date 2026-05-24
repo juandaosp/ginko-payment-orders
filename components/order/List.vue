@@ -32,6 +32,7 @@
                         v-for="order in paginatedOrders"
                         :key="order.id"
                         :order="order"
+                        @click="$emit('order-click', order)"
                     />
                 </tbody>
             </table>
@@ -77,9 +78,5 @@ const nextPage = () => {
 };
 const prevPage = () => {
     if (currentPage.value > 1) currentPage.value--;
-};
-
-const onOrderClick = (order: PaymentOrder) => {
-    emit("order-click", order);
 };
 </script>

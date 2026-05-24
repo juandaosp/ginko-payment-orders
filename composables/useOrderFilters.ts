@@ -21,8 +21,6 @@ export const useOrderFilters = () => {
   };
 
   const filteredOrders = computed(() => {
-    // CORRECCIÓN: Usamos el operador de coalescencia nula (??) para asegurar
-    // que siempre trabajamos con un array, aunque sea vacío.
     const orders = store.orders ?? [];
 
     return orders.filter((order) => {

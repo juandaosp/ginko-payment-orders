@@ -7,7 +7,9 @@ export const useOrderForm = (onSuccess: (values: any) => void) => {
 
   const validationSchema = toTypedSchema(
     z.object({
-      provider: z.string().min(3, "El proveedor es requerido (mín 3 chars)"),
+      providerName: z
+        .string()
+        .min(3, "El proveedor es requerido (mín 3 chars)"),
       amount: z.coerce.number().positive("El monto debe ser mayor a cero"),
       concept: z
         .string()
@@ -16,29 +18,18 @@ export const useOrderForm = (onSuccess: (values: any) => void) => {
     }),
   );
 
-  const { handleSubmit, isSubmitting, errors } = useForm({
+  const { handleSubmit, isSubmitting, errors, meta } = useForm({
     validationSchema,
+    initialValues: { providerName: "", amount: undefined, concept: "" },
   });
 
-  // Configuración de validación dinámica por campo
-  const fieldConfig = { validateOnValueUpdate: true };
-
-  const { value: provider } = useField<string>(
-    "provider",
-    undefined,
-    fieldConfig,
-  );
-  const { value: amount } = useField<number>("amount", undefined, fieldConfig);
-  const { value: concept } = useField<string>(
-    "concept",
-    undefined,
-    fieldConfig,
-  );
+  const { value: providerName } = useField<string>("providerName");
+  const { value: amount } = useField<number>("amount");
+  const { value: concept } = useField<string>("concept");
 
   const onSubmit = handleSubmit(async (values) => {
     apiError.value = null;
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       onSuccess(values);
     } catch (err) {
       apiError.value = "Error al procesar la solicitud";
@@ -46,12 +37,12 @@ export const useOrderForm = (onSuccess: (values: any) => void) => {
   });
 
   return {
-    provider,
+    providerName,
     amount,
     concept,
     errors,
     isSubmitting,
-    isValid: computed(() => Object.keys(errors.value).length === 0),
+    isValid: computed(() => meta.value.valid),
     apiError,
     onSubmit,
   };

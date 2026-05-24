@@ -6,7 +6,7 @@
         <td
             class="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white"
         >
-            #{{ order.id }}
+            #{{ order.id.slice(-6) }}
         </td>
         <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-300">
             {{ order.providerName }}

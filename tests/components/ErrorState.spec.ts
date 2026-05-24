@@ -4,10 +4,9 @@ import ErrorState from "../../components/ErrorState.vue";
 
 describe("ErrorState", () => {
   it("renderiza el mensaje de error recibido por prop", () => {
-    const errorMessage = "Error al cargar los datos";
     const wrapper = mount(ErrorState, {
-      props: { message: errorMessage },
+      props: { message: "Error al cargar los datos" },
     });
-    expect(wrapper.text()).toContain(errorMessage);
+    expect(wrapper.text()).toContain("Error al cargar los datos");
   });
 });

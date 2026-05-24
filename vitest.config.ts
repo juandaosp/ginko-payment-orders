@@ -3,7 +3,6 @@ import { defineVitestConfig } from "@nuxt/test-utils/config";
 
 export default defineVitestConfig({
   test: {
-    // Cambia jsdom a nuxt para que los tests de páginas funcionen
     environment: "nuxt",
     globals: true,
     include: ["tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
@@ -20,8 +19,7 @@ export default defineVitestConfig({
     environmentOptions: {
       nuxt: {
         rootDir: fileURLToPath(new URL("./", import.meta.url)),
-        domEnvironment: "happy-dom", // Aseguramos explícitamente el uso de happy-dom
-      },
+        domEnvironment: "happy-dom",
     },
   },
 });

@@ -12,10 +12,14 @@ describe("OrderList", () => {
     expect(rows.length).toBeGreaterThan(0);
   });
 
-  it("emite el evento al hacer clic en una orden", async () => {
-    const wrapper = mount(OrderList, { props: { orders: mockOrders } });
+  it("emite el evento 'order-click' al hacer clic en una fila (OrderRow)", async () => {
+    const wrapper = mount(OrderList, {
+      props: { orders: mockOrders },
+      global: { stubs: { OrderRow: true } },
+    });
+
     const row = wrapper.findComponent({ name: "OrderRow" });
-    await row.trigger("click");
+    await row.trigger("click"); // O row.vm.$emit("click", mockOrderA)
 
     expect(wrapper.emitted()).toHaveProperty("order-click");
     expect(wrapper.emitted("order-click")![0]).toEqual([mockOrders[0]]);
@@ -57,8 +61,6 @@ describe("OrderList", () => {
       .findAll("button")
       .find((b) => b.text() === "Siguiente");
     await nextBtn?.trigger("click");
-    console.log(Object.keys(wrapper.emitted())); // <-- Esto te dirá qué nombres de eventos existen
-
     const prevBtn = wrapper
       .findAll("button")
       .find((b) => b.text() === "Anterior");

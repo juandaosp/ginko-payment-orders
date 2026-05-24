@@ -50,23 +50,20 @@ const getStoredOrders = (): PaymentOrder[] =>
 const saveStoredOrders = (orders: PaymentOrder[]) =>
   localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
 
-// Carga inicial
 initializeDb();
 
 export const handlers = [
-  // Listar órdenes
   http.get("/api/orders", () => {
     return HttpResponse.json(getStoredOrders());
   }),
 
-  // Crear orden
   http.post("/api/orders", async ({ request }) => {
     const body = (await request.json()) as any;
     const orders = getStoredOrders();
 
     const newOrder: PaymentOrder = {
       id: Date.now().toString(),
-      providerName: body.provider,
+      providerName: body.providerName,
       amount: body.amount,
       concept: body.concept,
       status: "BORRADOR",

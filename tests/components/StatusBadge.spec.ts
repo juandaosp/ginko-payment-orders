@@ -11,7 +11,6 @@ describe("StatusBadge", () => {
   });
   it("aplica la clase de color correcta para BORRADOR", () => {
     const wrapper = mount(StatusBadge, { props: { status: "BORRADOR" } });
-    // Verifica si tiene la clase esperada o el texto
     expect(wrapper.text()).toContain("BORRADOR");
   });
   it("aplica estilos distintos según el estado", () => {

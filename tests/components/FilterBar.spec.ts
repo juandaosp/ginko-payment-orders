@@ -4,7 +4,6 @@ import FilterBar from "../../components/FilterBar.vue";
 
 describe("FilterBar", () => {
   it("emite evento filter-change al escribir en el buscador", async () => {
-    // Pasamos props iniciales para que el componente tenga un estado base
     const wrapper = mount(FilterBar, {
       props: { status: "Todos", search: "" },
     });

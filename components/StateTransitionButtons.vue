@@ -10,7 +10,7 @@
                 <button
                     v-for="status in validTransitions"
                     :key="status"
-                    @click="confirmTransition(status)"
+                    @click="emitTransition(status)"
                     :class="[
                         'px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 border',
                         status === 'RECHAZADA'
@@ -74,7 +74,7 @@ import { useOrderStateTransition } from "~/composables/useOrderStateTransition";
 
 const props = defineProps<{ order: PaymentOrder }>();
 
-const selectedStatus = ref<OrderStatus | null>(null);
+const emit = defineEmits(["transition"]);
 
 const { getValidTransitions } = useOrderStateTransition();
 
@@ -91,7 +91,7 @@ const getLabel = (status: OrderStatus) => {
     return labels[status] || status;
 };
 
-const confirmTransition = (status: OrderStatus) => {
-    selectedStatus.value = status;
+const emitTransition = (status: OrderStatus) => {
+    emit("transition", status);
 };
 </script>

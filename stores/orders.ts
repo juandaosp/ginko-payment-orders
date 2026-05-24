@@ -35,16 +35,12 @@ export const useOrderStore = defineStore("orders", {
         this.loading = false;
       }
     },
-    // En stores/orders.ts
     async updateOrderStatus(id: string, status: OrderStatus) {
       this.loading = true;
       this.error = null;
       try {
-        // Usa el servicio, NO fetch manual.
-        // MSW interceptará la llamada que el servicio hace por debajo.
         const updatedOrder = await orderService.updateOrderStatus(id, status);
 
-        // Actualiza el estado local del store
         const index = this.orders.findIndex((o) => o.id === id);
         if (index !== -1) {
           this.orders[index] = updatedOrder;

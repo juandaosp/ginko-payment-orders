@@ -5,6 +5,8 @@ import EmptyState from "../../components/EmptyState.vue";
 describe("EmptyState", () => {
   it("renderiza el mensaje de estado vacío", () => {
     const wrapper = mount(EmptyState);
-    expect(wrapper.text()).toContain("No hay órdenes");
+    expect(wrapper.text()).toContain(
+      "No se encontraron órdenes con esos criterios.",
+    );
   });
 });

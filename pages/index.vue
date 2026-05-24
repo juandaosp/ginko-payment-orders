@@ -4,7 +4,7 @@
             <h1
                 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2"
             >
-                Bienvenido a Ginko
+                Bienvenido a Ginko Payments
             </h1>
             <p class="text-lg text-slate-500 dark:text-slate-400">
                 Gestiona tus operaciones financieras con total control.

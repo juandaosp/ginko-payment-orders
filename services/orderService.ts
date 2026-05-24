@@ -16,7 +16,6 @@ export const orderService = {
   },
 
   async updateOrderStatus(id: string, status: string) {
-    // Asegúrate de que esta URL sea exactamente '/api/orders/' + id
     const response = await fetch(`/api/orders/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
