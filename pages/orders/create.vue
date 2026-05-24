@@ -16,8 +16,7 @@ const handleSuccess = async (values: any) => {
         await orderStore.createOrder(values);
         router.push("/");
     } catch (error) {
-        // El formulario ya maneja el apiError internamente,
-        // aquí solo manejamos la navegación
+        return;
     }
 };
 </script>

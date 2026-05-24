@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, it, expect, vi } from "vitest";
-import CreatePage from "~/pages/create.vue";
+import CreatePage from "~/pages/orders/create.vue";
 
 describe("pages/create.vue", () => {
   it("ejecuta la navegación al recibir success", async () => {

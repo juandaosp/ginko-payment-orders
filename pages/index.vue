@@ -29,7 +29,7 @@
                 <input
                     v-model="searchId"
                     type="text"
-                    placeholder="Escribe el ID (ej: 1)"
+                    placeholder="Escribe el ID"
                     class="border rounded px-4 py-2 w-full max-w-xs"
                 />
                 <button

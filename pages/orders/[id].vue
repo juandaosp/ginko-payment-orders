@@ -1,67 +1,39 @@
 <template>
-    <div class="max-w-2xl mx-auto py-10 px-4">
+    <div class="max-w-4xl mx-auto py-10 px-4">
         <div v-if="order">
-            <h1 class="text-2xl font-bold mb-6">
-                Detalle de la Orden #{{ order.id }}
-            </h1>
+            <OrderDetail :order="order" />
 
-            <div
-                class="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
-            >
-                <p class="mb-2">
-                    <strong>Proveedor:</strong> {{ order.providerName }}
-                </p>
-                <p class="mb-2">
-                    <strong>Monto:</strong> ${{ order.amount.toLocaleString() }}
-                </p>
-                <p class="mb-2">
-                    <strong>Concepto:</strong> {{ order.concept }}
-                </p>
-                <p class="mb-2">
-                    <strong>Fecha:</strong> {{ order.createdAt }}
-                </p>
-                <p class="mb-2"><strong>Estado:</strong> {{ order.status }}</p>
+            <div class="mt-8 flex gap-3">
+                <button
+                    v-for="status in getValidTransitions(order.status)"
+                    :key="status"
+                    @click="transitionTo(status)"
+                    class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                >
+                    {{ status }}
+                </button>
             </div>
-
-            <button
-                @click="navigateTo('/orders')"
-                class="mt-6 text-blue-600 hover:underline"
-            >
-                ← Volver al listado
-            </button>
         </div>
 
-        <div v-else class="text-center py-10">
-            <h2 class="text-xl font-semibold text-red-600">
-                Orden no encontrada
-            </h2>
-            <p class="text-gray-500">
-                La orden con ID {{ route.params.id }} no existe.
-            </p>
-            <button
-                @click="navigateTo('/orders')"
-                class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-                Volver al listado
-            </button>
-        </div>
+        <ErrorState v-else message="La orden no existe" />
     </div>
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
+import { useOrderStateTransition } from "~/composables/useOrderStateTransition";
+import type { OrderStatus } from "~/types";
+
+const { canTransitionTo, getValidTransitions } = useOrderStateTransition();
 const orderStore = useOrderStore();
+const route = useRoute();
 
-// Buscamos la orden directamente en el store
-const order = computed(() => {
-    const paramId = String(route.params.id);
-    // Nos aseguramos de convertir el id de la orden a string también
-    return orderStore.orders.find((o) => String(o.id) === paramId);
-});
+const order = computed(() =>
+    orderStore.orders.find((o) => o.id === route.params.id),
+);
 
-onMounted(async () => {
-    if (orderStore.orders.length === 0) {
-        await orderStore.loadOrders();
+const transitionTo = (newStatus: OrderStatus) => {
+    if (order.value && canTransitionTo(order.value.status, newStatus)) {
+        orderStore.updateOrderStatus(order.value.id, newStatus);
     }
-});
+};
 </script>

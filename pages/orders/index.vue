@@ -19,10 +19,7 @@ onMounted(() => {
     const route = useRoute();
 
     if (Object.keys(route.query).length > 0) {
-        // Esto limpia la URL a la raíz (ej. de /?status=Pagada a /)
         router.replace({ query: {} });
-
-        // Opcional: Si quieres forzar el estado interno a los valores por defecto
         updateFilters("Todos", "");
     }
 });

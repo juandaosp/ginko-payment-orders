@@ -1,95 +1,298 @@
-# Ginko Financial Solutions - Gestión de Pagos
+# 📋 Ginko Payment Orders
 
-Proyecto desarrollado para la prueba técnica de Ginko. Esta aplicación permite la gestión de órdenes de pago a proveedores con funcionalidades de filtrado, creación y transición de estados.
+Aplicación Vue 3 + Nuxt 4 para gestión de órdenes de pago a proveedores.
 
-## 🚀 Tecnologías y Stack
-- **Framework:** Nuxt 4
-- **Lenguaje:** TypeScript
-- **Manejo de Estado:** Pinia
-- **Estilos:** Tailwind CSS
-- **Testing:** Vitest + Vue Test Utils
-- **Mocking:** MSW (Mock Service Worker)
+---
 
-## 📂 Decisiones de Diseño y Arquitectura
+## 🎯 Características
 
-### 1. Elección de Framework y manejo de estado: Nuxt 4 y @pinia/nuxt
+- ✅ Listado de órdenes con tabla (desktop) y tarjetas (mobile)
+- ✅ Filtros por estado y búsqueda de proveedor (sincronizados en URL)
+- ✅ Crear nuevas órdenes con validaciones en tiempo real
+- ✅ Vista detallada con transición de estados
+- ✅ Responsive design (mobile, tablet, desktop)
+- ✅ Tests unitarios con Vitest + Vue Test Utils
 
-Aunque inicialmente se consideró una configuración estándar de Vite + Vue, se optó por **Nuxt 4**. 
+---
 
-* **Justificación:** Nuxt proporciona una estructura de carpetas estandarizada que mejora el mantenimiento. El sistema de auto-imports reduce significativamente el *boilerplate*, permitiendo un enfoque directo en la lógica de negocio y la entrega de funcionalidades.
+## 🏗️ Stack Técnico
 
-- **Configuración de Estado:** Se instaló `@pinia/nuxt` para gestionar el estado global. La configuración es automática a través del módulo oficial, permitiendo el uso de *stores* con auto-importación.
+- **Framework**: Nuxt 4 (file-based routing, auto-imports)
+- **Lenguaje**: TypeScript
+- **Estado**: Pinia (global) + composables (local)
+- **Validación**: Vee-Validate + Zod
+- **Estilos**: Tailwind CSS
+- **Mock API**: MSW (datos en localStorage)
+- **Testing**: Vitest + Vue Test Utils
 
-### 2. Gestión de Estado (Pinia vs. Local) y Formularios
-* **Pinia:** Utilizado para el estado global (ej. listado centralizado de órdenes, filtros persistentes en URL).
-* **Estado Local:** Aplicado para lógica de componentes (validaciones de formularios, estados de UI efímeros), asegurando que los componentes sean altamente reutilizables y desacoplados.
-* **Validación de Formularios:** Se integró vee-validate junto con Zod para definir esquemas de validación tipados. Esto permite validaciones declarativas, feedback en tiempo real y una separación clara entre la interfaz (UI) y la lógica de negocio mediante el composable useOrderForm.
+---
 
-## 🛠 Desarrollo con Mock Service Worker (MSW)
-Este proyecto utiliza **MSW** para simular la API de órdenes de pago en el entorno de desarrollo. 
+## 📥 Requisitos Previos
 
-- **Persistencia:** Los datos se guardan en el `localStorage` del navegador con la clave `ginko_orders`.
-- **Servicio:** Las llamadas a `/api/orders` son interceptadas automáticamente.
-- **Configuración:**
-    - Plugin de cliente: `plugins/msw.client.ts`
-    - Handlers: `mocks/handlers.ts`
-    - Los mocks solo se activan en `process.env.NODE_ENV === 'development'`.
+- Node.js 24+ (recomendado 24+)
 
-Para limpiar los datos de prueba, puedes borrar la clave `ginko_orders` en la pestaña *Application* de las DevTools de tu navegador.
+---
 
-### 4. Estilos y Diseño
-* **Tailwind CSS:** Se integró `@nuxtjs/tailwindcss` para la estilización rápida y consistente de la interfaz, permitiendo un desarrollo de componentes eficiente y mantenible.
-### 5. Sincronización de Filtros con la URL (Estado como fuente de verdad)
-Se implementó un composable dedicado `useOrderFilters` que utiliza los **query parameters** de la URL como fuente única de verdad para el estado de filtrado (estado y búsqueda).
+## 🚀 Instalación
 
-* **Justificación:** Esto permite que el usuario pueda compartir un enlace específico con filtros aplicados o recargar la página (F5) sin perder su contexto de trabajo.
-* **Técnica:** Se evitó el uso de `watchers` complejos mediante el uso de `computed` properties con *getters* y *setters*, logrando una sincronización bidireccional limpia y reactiva entre la URL y la UI.
-
-## 🛠 Instrucciones de Instalación
-
-1. **Clonar el repositorio:**
 ```bash
-   git clone <url-del-repo>
-   cd ginko-payment-orders
-```
-2. **Instalar dependencias:**
-```bash
-    npm install
-```
-3. Ejecutar el proyecto en desarrollo:
-```bash
-    npm run dev
-```
-La aplicación estará disponible en http://localhost:3000.
+# Clonar
+git clone https://github.com/tuusuario/ginko-payment-orders.git
+cd ginko-payment-orders
 
-## 🧪 Pruebas
-Para ejecutar el conjunto de pruebas unitarias y verificar la calidad del código y el coverage:
-```bash
-    npm run test
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev
 ```
 
-## 📁 Estructura y Archivos del Proyecto
-Esta sección documenta la ubicación y propósito de los archivos principales creados durante el desarrollo:
+Abre http://localhost:3000 en tu navegador.
 
-- `types/index.ts`: Definición de interfaces (`PaymentOrder`) y tipos (`OrderStatus`) para consistencia de datos en toda la aplicación.
-- `services/orderService.ts`: Implementación de lógica de Mock para simulación de consumo de API.
-- `stores/orders.ts`: Store de Pinia para la gestión del estado global de las órdenes (listado y carga).
-- `composables/useApi.ts`: Composable genérico para el manejo unificado de estados de carga, error y datos en llamadas asíncronas.
-- `assets/css/main.css`: Archivo de estilos base donde se importan las directivas de Tailwind CSS.
-- `composables/`: Lógica de estado compartido y utilidades, incluyendo el manejo unificado de estados de carga y error.
-- `composables/useOrderFilters.ts`: Lógica de negocio centralizada para el filtrado de órdenes. Implementa la lógica de filtrado "AND" y asegura la persistencia del estado en los parámetros de la URL.
-- `components/`: Componentes de interfaz atómicos y orquestadores (OrderList, OrderRow, OrderCard, StatusBadge, estados de carga/error/vacío).
-- `services/`: Simulación de API para órdenes de pago utilizando servicios tipados.
-- `pages/create.vue`: Página de acceso /create. Gestiona el layout del formulario y la redirección post-éxito mediante el useRouter.
-- `components/OrderForm.vue`: Componente atómico de alta complejidad.
-- - Tecnología: vee-validate + zod para validaciones declarativas.
+---
 
-Funcionalidad: Validación en tiempo real, estado loading compartido, contador de caracteres y manejo de errores de API.
-## 📁 Estructura de Componentes
-Para garantizar la escalabilidad y el testing unitario, hemos desacoplado la interfaz en componentes atómicos:
+## 🧪 Testing
 
-- `components/OrderList.vue`: Componente orquestador que gestiona la vista de tabla (Desktop) y tarjetas (Mobile).
-- `components/OrderRow.vue`: Representación de fila para la tabla de órdenes.
-- `components/OrderCard.vue`: Representación de tarjeta para dispositivos móviles.
-- `components/StatusBadge.vue`: Componente visual para la representación de estados (`Borrador`, `Aprobada`, etc).
-- `components/LoadingState.vue`, `ErrorState.vue`, `EmptyState.vue`: Componentes de estado de UI para mejorar la experiencia de usuario.
+```bash
+# Ejecutar tests
+npm run test
+
+# Modo watch
+npm run test -- --watch
+
+# Coverage
+npm run test -- --coverage
+```
+
+---
+
+## 📂 Estructura del Proyecto
+
+```
+src/
+├── components/           # Componentes atómicos (OrderList, StatusBadge, etc)
+├── pages/               # Rutas (file-based routing)
+│   ├── index.vue        # Dashboard
+│   └── orders/
+│       ├── index.vue    # Listado
+│       ├── create.vue   # Crear orden
+│       └── [id].vue     # Detalle
+├── stores/              # Pinia (estado global)
+├── composables/         # Lógica reutilizable
+│   ├── useOrderFilters.ts
+│   ├── useOrderForm.ts
+│   ├── useApi.ts
+│   └── useOrderStateTransition.ts
+├── services/            # Lógica de negocio
+│   └── mocks/           # MSW handlers
+├── types/               # Tipos TypeScript
+└── assets/              # Estilos y recursos
+```
+
+---
+
+## 🎨 Decisiones de Diseño
+
+### 1. **Nuxt 4 vs Vue 3 puro**
+- File-based routing automático
+- Auto-imports de componentes y composables
+- Mejor DX y escalabilidad
+
+### 2. **Estado Global (Pinia) vs Local**
+- **Pinia**: órdenes, filtros persistentes
+- **Local**: validaciones, modales, estado efímero
+- Composables encapsulan lógica sin contaminar store
+
+### 3. **Validación: Vee-Validate + Zod**
+- Esquemas TypeScript tipados
+- Validaciones declarativas
+- Reutilizable cliente/servidor
+
+### 4. **Filtros en URL (Query Parameters)**
+- Fuente única de verdad para filtros
+- Shareable links con filtros aplicados
+- Persistent en recarga (F5)
+
+### 5. **MSW para Mock API**
+- Intercepta calls de fetch sin servidor externo
+- Persistencia con localStorage (`ginko_orders`)
+- Solo activo en desarrollo
+
+### 6. **Componentes Atómicos**
+- Responsabilidad única
+- Reutilizable (StatusBadge en tabla, cards, detalle)
+- Fácil de testear
+
+---
+
+## 🌐 Rutas
+
+| Ruta | Descripción |
+|------|-------------|
+| `/` | Dashboard |
+| `/orders` | Listado con filtros |
+| `/orders/create` | Crear nueva orden |
+| `/orders/:id` | Detalle y transiciones |
+
+---
+
+## 📊 Funcionalidades Implementadas
+
+### Bloque 1: Listado ✅
+- Tabla desktop + tarjetas mobile
+- Indicadores de estado con colores
+- Estados: cargando, error, vacío
+- Paginación cliente (10/página)
+
+### Bloque 2: Filtros ✅
+- Estado (TODOS, BORRADOR, APROBADA, RECHAZADA, PAGADA)
+- Búsqueda por proveedor
+- AND logic
+- Query params sincronizados
+
+### Bloque 3: Formulario ✅
+- Validaciones: proveedor (min 3), monto (>0), concepto (max 250)
+- Mensajes de error por campo
+- Contador de caracteres
+- Submit deshabilitado en estado inválido
+
+### Bloque 4: Detalle ✅
+- Vista completa de orden
+- Máquina de estados: BORRADOR→[APROBADA,RECHAZADA], APROBADA→PAGADA
+- Modal de confirmación
+- Manejo de errores
+
+### Bloque 5: Calidad ✅
+- Componentes pequeños y reutilizables
+- Estado local vs Pinia documentado
+- Responsive (mobile, tablet, desktop)
+- Tests: OrderForm, OrderList, useOrderFilters
+
+---
+
+## 🟡 Pendientes
+
+Lo que **no** completé y por qué:
+
+| Feature | Razón | Tiempo |
+|---------|-------|--------|
+| **Optimistic Updates** | Requiere rollback si API falla; preferí confiabilidad | 2h |
+| **Atajos de Teclado** | Low priority vs funcionalidades core | 30min |
+| **Dark Mode** | Low priority | 1h |
+| **Más Tests** | Coverage actual ~60%; necesitaría 80%+ | 2h |
+| **Animations** | Polish visual; low priority | 1h |
+
+---
+
+## 🧠 Composables Principales
+
+### `useOrderFilters()`
+Sincronización de filtros con URL y cálculo de órdenes filtradas.
+
+### `useOrderForm()`
+Validación y submit de formulario con Zod + Vee-Validate.
+
+### `useApi<T>()`
+Wrapper genérico para llamadas asíncronas (loading/error/data).
+
+### `useOrderStateTransition()`
+Máquina de estados validada para transiciones de órdenes.
+
+---
+
+## 📦 Store Pinia
+
+### State
+```typescript
+orders: PaymentOrder[]
+loading: boolean
+error: string | null
+```
+
+### Actions
+- `fetchOrders()` - GET /api/orders
+- `createOrder(payload)` - POST /api/orders
+- `updateOrderStatus(id, status)` - PATCH /api/orders/:id
+
+### Getters
+- `orderById(id)` - Buscar por ID
+- `ordersByStatus(status)` - Filtrar por estado
+
+---
+
+## 🔧 Desarrollo
+
+### Build
+```bash
+npm run build
+npm run preview
+```
+
+### Lint (si está configurado)
+```bash
+npm run lint
+```
+
+---
+
+## 📝 Notas Técnicas
+
+### Datos Mock
+Los datos se guardan en `localStorage` con clave `ginko_orders`.
+
+**Limpiar datos**:
+```javascript
+localStorage.removeItem('ginko_orders');
+location.reload();
+```
+
+### Validación
+- **Cliente**: Vee-Validate + Zod (en tiempo real)
+- **Servidor**: En producción, validar en backend también
+
+### Responsive Design
+- **Mobile**: < 640px (cards full-width, tabla hidden)
+- **Tablet**: 640-1023px (grid 2 cols)
+- **Desktop**: ≥ 1024px (tabla full, filtros lado a lado)
+
+---
+
+## ✨ Si tuviera más tiempo
+
+1. Optimistic updates (UX mejorado)
+2. 80%+ test coverage
+3. Dark mode
+4. Animations en transiciones
+5. Atajos de teclado
+
+---
+
+## 📄 Commits
+
+Historial organizado por features:
+
+```
+chore: initial Nuxt 4 scaffold
+feat: add TypeScript types and Pinia store
+feat: setup MSW mock API
+feat: add OrderList component (responsive)
+feat: add FilterBar and useOrderFilters
+feat: add OrderForm with Vee-Validate + Zod
+feat: add OrderDetail with state transitions
+test: add unit tests
+docs: add README
+```
+
+---
+
+## 🎓 Aprendizajes
+
+- Query parameters como estado compartido funciona muy bien
+- Máquinas de estado explícitas previenen bugs
+- Composables reutilizables > duplicación de código
+- TypeScript + Zod = confianza en validaciones
+
+---
+
+**Última actualización**: Mayo 2026  
+**Estado**: Completado y listo para evaluación

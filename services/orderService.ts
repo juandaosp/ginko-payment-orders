@@ -14,4 +14,16 @@ export const orderService = {
     });
     return response.json();
   },
+
+  async updateOrderStatus(id: string, status: string) {
+    // Asegúrate de que esta URL sea exactamente '/api/orders/' + id
+    const response = await fetch(`/api/orders/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+
+    if (!response.ok) throw new Error("Error en servicio");
+    return response.json();
+  },
 };
