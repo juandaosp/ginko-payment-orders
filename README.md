@@ -20,9 +20,10 @@ Aunque inicialmente se consideró una configuración estándar de Vite + Vue, se
 
 - **Configuración de Estado:** Se instaló `@pinia/nuxt` para gestionar el estado global. La configuración es automática a través del módulo oficial, permitiendo el uso de *stores* con auto-importación.
 
-### 2. Gestión de Estado (Pinia vs. Local)
+### 2. Gestión de Estado (Pinia vs. Local) y Formularios
 * **Pinia:** Utilizado para el estado global (ej. listado centralizado de órdenes, filtros persistentes en URL).
 * **Estado Local:** Aplicado para lógica de componentes (validaciones de formularios, estados de UI efímeros), asegurando que los componentes sean altamente reutilizables y desacoplados.
+* **Validación de Formularios:** Se integró vee-validate junto con Zod para definir esquemas de validación tipados. Esto permite validaciones declarativas, feedback en tiempo real y una separación clara entre la interfaz (UI) y la lógica de negocio mediante el composable useOrderForm.
 
 ### 3. Consumo de API
 * Se implementó un composable centralizado `useApi`. Esto unifica el manejo de los estados `loading`, `error` y `data`, garantizando una experiencia de usuario (UX) consistente en todos los puntos de la aplicación.
