@@ -70,7 +70,11 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `composables/useOrderFilters.ts`: Lógica de negocio centralizada para el filtrado de órdenes. Implementa la lógica de filtrado "AND" y asegura la persistencia del estado en los parámetros de la URL.
 - `components/`: Componentes de interfaz atómicos y orquestadores (OrderList, OrderRow, OrderCard, StatusBadge, estados de carga/error/vacío).
 - `services/`: Simulación de API para órdenes de pago utilizando servicios tipados.
+- `pages/create.vue`: Página de acceso /create. Gestiona el layout del formulario y la redirección post-éxito mediante el useRouter.
+- `components/OrderForm.vue`: Componente atómico de alta complejidad.
+- - Tecnología: vee-validate + zod para validaciones declarativas.
 
+Funcionalidad: Validación en tiempo real, estado loading compartido, contador de caracteres y manejo de errores de API.
 ## 📁 Estructura de Componentes
 Para garantizar la escalabilidad y el testing unitario, hemos desacoplado la interfaz en componentes atómicos:
 
