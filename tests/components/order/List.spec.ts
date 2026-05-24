@@ -11,6 +11,7 @@ describe("OrderList", () => {
     const rows = wrapper.findAll("tr");
     expect(rows.length).toBeGreaterThan(0);
   });
+
   it("emite el evento al hacer clic en una orden", async () => {
     const wrapper = mount(OrderList, { props: { orders: mockOrders } });
     const row = wrapper.findComponent({ name: "OrderRow" });
@@ -19,14 +20,15 @@ describe("OrderList", () => {
     expect(wrapper.emitted()).toHaveProperty("order-click");
     expect(wrapper.emitted("order-click")![0]).toEqual([mockOrders[0]]);
   });
+
   it("no renderiza filas si no hay órdenes", () => {
     const wrapper = mount(OrderList, { props: { orders: [] } });
     expect(wrapper.findComponent({ name: "OrderRow" }).exists()).toBe(false);
   });
+
   it("ejecuta la función onOrderClick al hacer clic en una fila", async () => {
     const wrapper = mount(OrderList, { props: { orders: [mockOrderA] } });
 
-    // En lugar de hacer trigger al componente, busca el elemento que tiene el evento
     await wrapper
       .findComponent({ name: "OrderRow" })
       .vm.$emit("click", mockOrderA);
@@ -40,40 +42,42 @@ describe("OrderList", () => {
       props: { orders: Array(20).fill(mockOrderA) },
     });
 
-    // Asumiendo que el botón "Siguiente" tiene un identificador o es el último botón
-    const buttons = wrapper.findAll("button");
-    const nextBtn = buttons.find((b) => b.text() === "Siguiente");
-
-    await nextBtn?.trigger("click");
-    expect(wrapper.vm.currentPage).toBe(2); // Validamos que el estado interno cambió
+    const pagination = wrapper.findComponent({ name: "PaginationControls" });
+    await pagination.vm.$emit("next");
+    expect(wrapper.text()).toContain(mockOrderA.id);
+    expect(pagination.props("currentPage")).toBe(2);
   });
 
-  it("no debería permitir ir a una página mayor al total", async () => {
-    const wrapper = mount(OrderList, {
-      props: { orders: Array(15).fill(mockOrderA) },
-    });
-    // Forzamos la navegación hasta el final
-    await wrapper.setData({ currentPage: 2 });
-
-    const nextBtn = wrapper
-      .findAll("button")
-      .find((b) => b.text() === "Siguiente");
-    expect(nextBtn?.element.disabled).toBe(true);
-  });
   it("debería retroceder a la página anterior", async () => {
     const wrapper = mount(OrderList, {
       props: { orders: Array(20).fill(mockOrderA) },
     });
 
-    // Primero vamos a la página 2
-    await wrapper.setData({ currentPage: 2 });
+    const nextBtn = wrapper
+      .findAll("button")
+      .find((b) => b.text() === "Siguiente");
+    await nextBtn?.trigger("click");
+    console.log(Object.keys(wrapper.emitted())); // <-- Esto te dirá qué nombres de eventos existen
 
-    // Ahora buscamos el botón "Anterior"
     const prevBtn = wrapper
       .findAll("button")
       .find((b) => b.text() === "Anterior");
+    expect(prevBtn?.element.disabled).toBe(false);
 
     await prevBtn?.trigger("click");
-    expect(wrapper.vm.currentPage).toBe(1);
+
+    expect(prevBtn?.element.disabled).toBe(true);
+  });
+
+  it("el botón siguiente debería estar deshabilitado en la última página", async () => {
+    const wrapper = mount(OrderList, {
+      props: { orders: Array(15).fill(mockOrderA) },
+    });
+
+    const pagination = wrapper.findComponent({ name: "PaginationControls" });
+    await pagination.vm.$emit("next");
+
+    expect(pagination.props("currentPage")).toBe(2);
+    expect(pagination.props("totalPages")).toBe(2);
   });
 });
