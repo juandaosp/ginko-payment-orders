@@ -2,38 +2,37 @@
     <div
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm"
     >
-        <div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm w-full">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">
-                Confirmar cambio de estado
-            </h3>
-            <p class="text-gray-600 mb-6">
-                ¿Cambiar de <span class="font-bold">{{ order.status }}</span> a
-                <span class="font-bold text-indigo-600">{{ targetStatus }}</span
-                >?
-            </p>
-
-            <div
-                v-if="error"
-                class="mb-4 p-3 bg-red-50 text-red-700 text-sm rounded-lg border border-red-200"
-            >
-                {{ error }}
-            </div>
-
-            <div class="flex justify-end gap-3">
-                <button
-                    @click="$emit('cancel')"
-                    :disabled="loading"
-                    class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
+        <div
+            class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full border border-gray-100"
+        >
+            <div class="text-center">
+                <div
+                    class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 mb-4"
                 >
-                    Cancelar
-                </button>
+                    <span class="text-2xl">❓</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    ¿Confirmar cambio?
+                </h3>
+                <p class="text-gray-600 mb-8">
+                    Estás a punto de marcar esta orden como
+                    <span class="font-bold text-indigo-600">
+                        {{ targetStatus }}</span
+                    >.
+                </p>
+            </div>
+            <div class="flex flex-col gap-2">
                 <button
                     @click="handleConfirm"
-                    :disabled="loading"
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center gap-2"
+                    class="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition"
                 >
-                    <span v-if="loading">Procesando...</span>
-                    <span v-else>Confirmar</span>
+                    Sí, confirmar
+                </button>
+                <button
+                    @click="handleCancel"
+                    class="w-full py-3 text-gray-500 font-medium hover:bg-gray-50 rounded-xl transition"
+                >
+                    Cancelar
                 </button>
             </div>
         </div>
@@ -63,5 +62,9 @@ const handleConfirm = async () => {
     } finally {
         loading.value = false;
     }
+};
+const handleCancel = () => {
+    error.value = null;
+    emit("cancel");
 };
 </script>
