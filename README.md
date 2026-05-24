@@ -294,6 +294,37 @@ docs: add README
 
 ---
 
+#### Index
+<img width="1100" height="747" alt="GinkoPaymentsIndex" src="https://github.com/user-attachments/assets/99c41bca-0e41-4334-8123-4bec560047d7" />
+
+#### Index Mobile
+<img width="388" height="747" alt="GinkoPaymentsIndex_mobile" src="https://github.com/user-attachments/assets/5f2e01e6-e931-40af-9c84-87151f283cd4" />
+
+#### Order List Dark
+<img width="1118" height="878" alt="OrderList_dark" src="https://github.com/user-attachments/assets/1c2a6782-e5f9-4311-b478-700237c6d8fa" />
+
+#### Order List Filter
+<img width="1093" height="878" alt="OrdersListWithFilter" src="https://github.com/user-attachments/assets/2e932c51-f79f-4fb5-8ef6-2bb8daaedf2e" />
+
+#### Order List Mobile
+<img width="644" height="878" alt="OrderList_mobile" src="https://github.com/user-attachments/assets/a7b2549b-c516-46b5-9d8e-dfbda78f1553" />
+
+#### Order Detail
+<img width="1108" height="878" alt="OrderDetail" src="https://github.com/user-attachments/assets/333ca790-1441-477e-8d3d-505d597fc453" />
+
+#### Order Detail Dark Mobile
+<img width="479" height="878" alt="orderDetailDarkMobile" src="https://github.com/user-attachments/assets/9b33a4c4-462c-43b9-ae67-f6fbeaaa281f" />
+
+#### Order Detail Dark View
+<img width="1108" height="878" alt="orderDetailDark" src="https://github.com/user-attachments/assets/f9f09138-330b-478b-a2f3-abf78ab1026b" />
+
+### Create Order
+<img width="1029" height="878" alt="GinkoPayments1CreateOrder" src="https://github.com/user-attachments/assets/e298bd71-9323-451c-b548-6318595d3a82" />
+
+### Create Order Mobile
+<img width="438" height="878" alt="GinkoPayments1CreateOrder_mobile" src="https://github.com/user-attachments/assets/b0c88028-d4bc-4c10-9a18-6169f1fc2f58" />
+
+
 ## Autor
 
 Juan David Ospina - Mayo 2026
