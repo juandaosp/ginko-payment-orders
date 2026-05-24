@@ -1,7 +1,9 @@
 <template>
-    <div class="mt-8 pt-6 border-t border-gray-100">
+    <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700">
         <div v-if="validTransitions.length > 0">
-            <h3 class="text-sm font-medium text-gray-500 mb-4">
+            <h3
+                class="text-sm font-semibold text-slate-900 dark:text-white mb-4"
+            >
                 Acciones disponibles
             </h3>
             <div class="flex flex-wrap gap-3">
@@ -10,33 +12,59 @@
                     :key="status"
                     @click="confirmTransition(status)"
                     :class="[
-                        'px-6 py-2.5 rounded-lg font-semibold transition-all shadow-sm flex items-center gap-2',
+                        'px-5 py-2.5 rounded-xl font-semibold transition-all flex items-center gap-2 border',
                         status === 'RECHAZADA'
-                            ? 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-700',
+                            ? 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/50 hover:bg-red-100'
+                            : 'bg-ginko text-white border-transparent hover:bg-indigo-700 shadow-sm',
                     ]"
                 >
-                    <span v-if="status === 'APROBADA'">✅</span>
-                    <span v-if="status === 'RECHAZADA'">❌</span>
-                    <span v-if="status === 'PAGADA'">💰</span>
+                    <svg
+                        v-if="status === 'APROBADA'"
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                        ></path>
+                    </svg>
+                    <svg
+                        v-if="status === 'RECHAZADA'"
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                    </svg>
+                    <svg
+                        v-if="status === 'PAGADA'"
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                        ></path>
+                    </svg>
+
                     {{ getLabel(status) }}
                 </button>
             </div>
         </div>
-
-        <div v-else class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-            <p class="text-gray-500 italic text-sm">
-                No hay acciones disponibles para el estado actual.
-            </p>
-        </div>
-
-        <ConfirmStateTransition
-            v-if="selectedStatus"
-            :order="order"
-            :target-status="selectedStatus"
-            @confirm="selectedStatus = null"
-            @cancel="selectedStatus = null"
-        />
     </div>
 </template>
 

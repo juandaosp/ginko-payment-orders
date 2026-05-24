@@ -1,9 +1,10 @@
 <template>
     <div
-        class="filter-bar flex flex-col md:flex-row gap-4 p-4 bg-white border-b border-gray-200"
+        class="bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm mb-8 flex flex-col md:flex-row gap-4 items-end"
     >
-        <div class="flex-1">
-            <label class="block text-sm font-medium text-gray-700 mb-1"
+        <div class="flex-1 w-full">
+            <label
+                class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2"
                 >Proveedor</label
             >
             <input
@@ -15,13 +16,14 @@
                         search: ($event.target as HTMLInputElement).value,
                     })
                 "
-                placeholder="Buscar por proveedor..."
-                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+                placeholder="Filtrar por nombre..."
+                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
             />
         </div>
 
-        <div class="w-full md:w-64">
-            <label class="block text-sm font-medium text-gray-700 mb-1"
+        <div class="w-full md:w-56">
+            <label
+                class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2"
                 >Estado</label
             >
             <select
@@ -32,9 +34,9 @@
                         search,
                     })
                 "
-                class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border"
+                class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all cursor-pointer"
             >
-                <option value="Todos">Todos</option>
+                <option value="Todos">Todos los estados</option>
                 <option value="Borrador">Borrador</option>
                 <option value="Aprobada">Aprobada</option>
                 <option value="Rechazada">Rechazada</option>
@@ -43,7 +45,6 @@
         </div>
     </div>
 </template>
-
 <script setup lang="ts">
 defineProps<{
     status?: string;

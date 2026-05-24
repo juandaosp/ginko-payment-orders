@@ -1,41 +1,47 @@
 <template>
-    <div class="order-list-container">
-        <table class="hidden md:table min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
-                        Orden(id)
-                    </th>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
-                        Proveedor
-                    </th>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
-                        Estado
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-                <OrderRow
-                    v-for="order in paginatedOrders"
-                    :key="order.id"
-                    :order="order"
-                    @click="onOrderClick(order)"
-                />
-            </tbody>
-        </table>
+    <div class="space-y-4">
+        <div
+            class="hidden md:block overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm"
+        >
+            <table
+                class="min-w-full divide-y divide-slate-200 dark:divide-slate-700"
+            >
+                <thead class="bg-slate-50 dark:bg-slate-800">
+                    <tr>
+                        <th
+                            class="px-6 py-4 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                        >
+                            Orden (ID)
+                        </th>
+                        <th
+                            class="px-6 py-4 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                        >
+                            Proveedor
+                        </th>
+                        <th
+                            class="px-6 py-4 text-left text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                        >
+                            Estado
+                        </th>
+                    </tr>
+                </thead>
+                <tbody
+                    class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900"
+                >
+                    <OrderRow
+                        v-for="order in paginatedOrders"
+                        :key="order.id"
+                        :order="order"
+                    />
+                </tbody>
+            </table>
+        </div>
 
-        <div class="md:hidden space-y-4">
+        <div class="md:hidden space-y-3">
             <OrderCard
                 v-for="order in paginatedOrders"
                 :key="order.id"
                 :order="order"
-                @click="onOrderClick(order)"
             />
         </div>
 

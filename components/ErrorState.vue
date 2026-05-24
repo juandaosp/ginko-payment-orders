@@ -1,16 +1,10 @@
 <template>
-    <div class="p-4 text-center">
-        <p class="text-red-600 mb-4">{{ message }}</p>
-        <button
-            @click="$emit('retry')"
-            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+    <div class="flex justify-center items-center py-20">
+        <div
+            class="animate-spin rounded-full h-8 w-8 border-b-2 border-ginko dark:border-indigo-400"
+        ></div>
+        <span class="ml-3 text-slate-600 dark:text-slate-400 font-medium"
+            >Cargando datos...</span
         >
-            Reintentar
-        </button>
     </div>
 </template>
-
-<script setup lang="ts">
-defineProps<{ message: string }>();
-defineEmits(["retry"]);
-</script>

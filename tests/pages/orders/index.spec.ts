@@ -3,7 +3,7 @@ import { mountSuspended } from "@nuxt/test-utils/runtime";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createTestingPinia } from "@pinia/testing";
 import { nextTick } from "vue";
-import IndexPage from "~/pages/order/index.vue";
+import IndexPage from "~/pages/orders/index.vue";
 import { useOrderStore } from "~/stores/orders";
 import { mockOrderA } from "../../mocks/order";
 import FilterBar from "~/components/FilterBar.vue";

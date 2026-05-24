@@ -294,5 +294,13 @@ docs: add README
 
 ---
 
+## Autor
+
+Juan David Ospina - Mayo 2026
+
+## Licencia
+
+MIT (implied por la prueba técnica)
+
 **Última actualización**: Mayo 2026  
 **Estado**: Completado y listo para evaluación

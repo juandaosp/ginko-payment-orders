@@ -1,42 +1,76 @@
 <template>
-    <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-        <div class="flex justify-between items-start mb-8">
+    <div class="space-y-8">
+        <div class="flex justify-between items-start">
             <div>
                 <h2
-                    class="text-sm font-semibold text-gray-500 uppercase tracking-wider"
+                    class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1"
                 >
                     Detalle de Orden
                 </h2>
-                <p class="text-lg md:text-3xl font-bold text-gray-900">
+                <p
+                    class="text-3xl font-extrabold text-slate-900 dark:text-white"
+                >
                     #{{ order.id }}
                 </p>
             </div>
-            <StatusBadge class="hidden md:inline-flex" :status="order.status" />
+            <StatusBadge class="hidden sm:inline-flex" :status="order.status" />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-                <h3 class="text-sm font-medium text-gray-500">Proveedor</h3>
-                <p class="text-lg text-gray-900">{{ order.providerName }}</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+                class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700"
+            >
+                <h3
+                    class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+                >
+                    Proveedor
+                </h3>
+                <p
+                    class="text-lg font-medium text-slate-900 dark:text-slate-100"
+                >
+                    {{ order.providerName }}
+                </p>
             </div>
 
-            <div>
-                <h3 class="text-sm font-medium text-gray-500">
-                    Fecha de creación
+            <div
+                class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700"
+            >
+                <h3
+                    class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+                >
+                    Fecha
                 </h3>
-                <p class="text-lg text-gray-900">
+                <p
+                    class="text-lg font-medium text-slate-900 dark:text-slate-100"
+                >
                     {{ formatDate(order?.createdAt || "") }}
                 </p>
             </div>
 
-            <div class="md:col-span-2">
-                <h3 class="text-sm font-medium text-gray-500">Concepto</h3>
-                <p class="text-lg text-gray-900">{{ order.concept }}</p>
+            <div
+                class="md:col-span-2 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700"
+            >
+                <h3
+                    class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mb-1"
+                >
+                    Concepto
+                </h3>
+                <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                    {{ order.concept }}
+                </p>
             </div>
 
-            <div>
-                <h3 class="text-sm font-medium text-gray-500">Monto total</h3>
-                <p class="text-lg md:text-2xl font-bold text-indigo-600">
+            <div
+                class="md:col-span-2 bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-xl border border-indigo-100 dark:border-indigo-900/50"
+            >
+                <h3
+                    class="text-xs font-semibold text-ginko dark:text-indigo-400 uppercase mb-1"
+                >
+                    Monto total
+                </h3>
+                <p
+                    class="text-4xl font-black text-indigo-700 dark:text-indigo-300"
+                >
                     {{ formatCurrency(order.amount) }}
                 </p>
             </div>

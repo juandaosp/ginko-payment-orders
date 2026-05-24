@@ -1,32 +1,14 @@
 <template>
-    <div class="max-w-4xl mx-auto px-4">
-        <NuxtLink
-            to="/orders"
-            class="inline-flex items-center text-sm text-gray-600 hover:text-indigo-600 mb-6 transition-colors"
+    <div class="max-w-3xl mx-auto py-10 px-4">
+        <div
+            class="bg-white dark:bg-slate-900 p-6 md:p-10 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
         >
-            <span class="mr-2">←</span> Volver al listado
-        </NuxtLink>
-
-        <div v-if="orderStore.loading" class="flex justify-center py-20">
-            <LoadingState />
+            <OrderDetail :order="order" />
+            <StateTransitionButtons
+                :order="order"
+                @transition="handleTransition"
+            />
         </div>
-
-        <template v-else-if="order">
-            <div
-                class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8 space-y-6"
-            >
-                <OrderDetail :order="order" />
-                <StateTransitionButtons
-                    :order="order"
-                    @transition="handleTransition"
-                />
-            </div>
-        </template>
-
-        <ErrorState
-            v-else
-            :message="`La orden con id: ${route.params.id} no existe`"
-        />
     </div>
 </template>
 

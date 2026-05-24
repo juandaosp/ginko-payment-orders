@@ -16,15 +16,14 @@
                 </h3>
                 <p class="text-gray-600 mb-8">
                     Estás a punto de marcar esta orden como
-                    <span class="font-bold text-indigo-600">
-                        {{ targetStatus }}</span
+                    <span class="font-bold text-ginko"> {{ targetStatus }}</span
                     >.
                 </p>
             </div>
             <div class="flex flex-col gap-2">
                 <button
                     @click="handleConfirm"
-                    class="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition"
+                    class="w-full py-3 bg-ginko text-white rounded-xl font-bold hover:bg-indigo-700 transition"
                 >
                     Sí, confirmar
                 </button>

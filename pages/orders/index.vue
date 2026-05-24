@@ -1,3 +1,30 @@
+<template>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <h1
+            class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-5"
+        >
+            Gestión de Órdenes
+        </h1>
+
+        <FilterBar
+            :status="status"
+            :search="search"
+            @filter-change="onFilterChange"
+        />
+
+        <div class="transition-opacity duration-500">
+            <ErrorState
+                v-if="ordersStore.error"
+                :message="ordersStore.error"
+                @retry="ordersStore.loadOrders"
+            />
+            <LoadingState v-else-if="ordersStore.loading" />
+            <EmptyState v-else-if="filteredOrders.length === 0" />
+            <OrderList v-else :orders="filteredOrders" />
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 import { useOrderStore } from "~/stores/orders";
 
@@ -20,29 +47,3 @@ onMounted(() => {
     }
 });
 </script>
-
-<template>
-    <div class="px-4 md:px-8 max-w-7xl mx-auto">
-        <h1 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">
-            Gestión de Órdenes de Pago
-        </h1>
-
-        <FilterBar
-            :status="status"
-            :search="search"
-            @filter-change="onFilterChange"
-        />
-
-        <ErrorState
-            v-if="ordersStore.error"
-            :message="ordersStore.error"
-            @retry="ordersStore.loadOrders"
-        />
-
-        <LoadingState v-else-if="ordersStore.loading" />
-
-        <EmptyState v-else-if="filteredOrders.length === 0" />
-
-        <OrderList v-else :orders="filteredOrders" />
-    </div>
-</template>
