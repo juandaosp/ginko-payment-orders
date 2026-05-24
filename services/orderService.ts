@@ -98,6 +98,30 @@ const mockOrders: PaymentOrder[] = [
     createdAt: "2026-05-21",
     status: "APROBADA",
   },
+  {
+    id: "13",
+    providerName: "Proveedor L",
+    amount: 1457812,
+    concept: "Licencias",
+    createdAt: "2026-05-21",
+    status: "APROBADA",
+  },
+  {
+    id: "14",
+    providerName: "Proveedor L",
+    amount: 1457812,
+    concept: "Licencias",
+    createdAt: "2026-05-21",
+    status: "APROBADA",
+  },
+  {
+    id: "15",
+    providerName: "Proveedor L",
+    amount: 1457812,
+    concept: "Licencias",
+    createdAt: "2026-05-21",
+    status: "APROBADA",
+  },
 ];
 
 export const fetchOrders = async (): Promise<PaymentOrder[]> => {

@@ -2,9 +2,7 @@
 import { useOrderStore } from "~/stores/orders";
 
 const ordersStore = useOrderStore();
-const { orders } = storeToRefs(ordersStore);
-const { status, search, filteredOrders, updateFilters } =
-    useOrderFilters(orders);
+const { status, search, filteredOrders, updateFilters } = useOrderFilters();
 
 const handleOrderClick = (order: any) => {
     console.log("Orden seleccionada:", order);

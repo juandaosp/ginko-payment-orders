@@ -83,26 +83,12 @@ const onOrderClick = (order: PaymentOrder) => {
             />
         </div>
 
-        <div class="flex justify-center items-center gap-4 mt-6">
-            <button
-                :disabled="currentPage === 1"
-                @click="prevPage"
-                class="px-4 py-2 bg-gray-100 rounded disabled:opacity-50"
-            >
-                Anterior
-            </button>
-
-            <span class="text-sm"
-                >Página {{ currentPage }} de {{ totalPages }}</span
-            >
-
-            <button
-                :disabled="currentPage === totalPages"
-                @click="nextPage"
-                class="px-4 py-2 bg-gray-100 rounded disabled:opacity-50"
-            >
-                Siguiente
-            </button>
-        </div>
+        <PaginationControls
+            v-if="totalPages > 1"
+            :current-page="currentPage"
+            :total-pages="totalPages"
+            @prev="prevPage"
+            @next="nextPage"
+        />
     </div>
 </template>
