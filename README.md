@@ -29,6 +29,11 @@ Aunque inicialmente se consideró una configuración estándar de Vite + Vue, se
 
 ### 4. Estilos y Diseño
 * **Tailwind CSS:** Se integró `@nuxtjs/tailwindcss` para la estilización rápida y consistente de la interfaz, permitiendo un desarrollo de componentes eficiente y mantenible.
+### 5. Sincronización de Filtros con la URL (Estado como fuente de verdad)
+Se implementó un composable dedicado `useOrderFilters` que utiliza los **query parameters** de la URL como fuente única de verdad para el estado de filtrado (estado y búsqueda).
+
+* **Justificación:** Esto permite que el usuario pueda compartir un enlace específico con filtros aplicados o recargar la página (F5) sin perder su contexto de trabajo.
+* **Técnica:** Se evitó el uso de `watchers` complejos mediante el uso de `computed` properties con *getters* y *setters*, logrando una sincronización bidireccional limpia y reactiva entre la URL y la UI.
 
 ## 🛠 Instrucciones de Instalación
 
@@ -62,6 +67,7 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `composables/useApi.ts`: Composable genérico para el manejo unificado de estados de carga, error y datos en llamadas asíncronas.
 - `assets/css/main.css`: Archivo de estilos base donde se importan las directivas de Tailwind CSS.
 - `composables/`: Lógica de estado compartido y utilidades, incluyendo el manejo unificado de estados de carga y error.
+- `composables/useOrderFilters.ts`: Lógica de negocio centralizada para el filtrado de órdenes. Implementa la lógica de filtrado "AND" y asegura la persistencia del estado en los parámetros de la URL.
 - `components/`: Componentes de interfaz atómicos y orquestadores (OrderList, OrderRow, OrderCard, StatusBadge, estados de carga/error/vacío).
 - `services/`: Simulación de API para órdenes de pago utilizando servicios tipados.
 
