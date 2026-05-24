@@ -45,21 +45,6 @@ const onOrderClick = (order: PaymentOrder) => {
                     <th
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
                     >
-                        Monto
-                    </th>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
-                        Concepto
-                    </th>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
-                        Fecha
-                    </th>
-                    <th
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                    >
                         Estado
                     </th>
                 </tr>

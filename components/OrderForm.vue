@@ -47,7 +47,6 @@
         >
             {{ apiError }}
         </div>
-        <pre class="text-xs">{{ { isValid, errors } }}</pre>
         <button
             type="submit"
             :disabled="isSubmitting || !isValid"
