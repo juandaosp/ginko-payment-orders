@@ -8,13 +8,23 @@ const handleOrderClick = (order: any) => {
     console.log("Orden seleccionada:", order);
 };
 
-const handleFilterChange = (filters: { status: string; search: string }) => {
-    console.log("Evento recibido en index.vue:", filters);
-    updateFilters(filters.status, filters.search);
+const onFilterChange = (payload: { status: string; search: string }) => {
+    updateFilters(payload.status, payload.search);
 };
 
 onMounted(() => {
     ordersStore.loadOrders();
+
+    const router = useRouter();
+    const route = useRoute();
+
+    if (Object.keys(route.query).length > 0) {
+        // Esto limpia la URL a la raíz (ej. de /?status=Pagada a /)
+        router.replace({ query: {} });
+
+        // Opcional: Si quieres forzar el estado interno a los valores por defecto
+        updateFilters("Todos", "");
+    }
 });
 </script>
 
@@ -27,7 +37,7 @@ onMounted(() => {
         <FilterBar
             :status="status"
             :search="search"
-            @filter-change="handleFilterChange"
+            @filter-change="onFilterChange"
         />
 
         <ErrorState
