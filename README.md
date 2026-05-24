@@ -61,9 +61,9 @@ Esta sección documenta la ubicación y propósito de los archivos principales c
 - `stores/orders.ts`: Store de Pinia para la gestión del estado global de las órdenes (listado y carga).
 - `composables/useApi.ts`: Composable genérico para el manejo unificado de estados de carga, error y datos en llamadas asíncronas.
 - `assets/css/main.css`: Archivo de estilos base donde se importan las directivas de Tailwind CSS.
-- `composables/`: (Pendiente) Lógica reutilizable como `useApi`.
-- `components/`: (Pendiente) Componentes de UI.
-- `services/`: (Pendiente) Configuración del Mock API (MSW).
+- `composables/`: Lógica de estado compartido y utilidades, incluyendo el manejo unificado de estados de carga y error.
+- `components/`: Componentes de interfaz atómicos y orquestadores (OrderList, OrderRow, OrderCard, StatusBadge, estados de carga/error/vacío).
+- `services/`: Simulación de API para órdenes de pago utilizando servicios tipados.
 
 ## 📁 Estructura de Componentes
 Para garantizar la escalabilidad y el testing unitario, hemos desacoplado la interfaz en componentes atómicos:
