@@ -78,4 +78,19 @@ export const handlers = [
 
     return HttpResponse.json(newOrder, { status: 201 });
   }),
+
+  http.patch("/api/orders/:id", async ({ params, request }) => {
+    const { id } = params;
+    const { status } = await request.json();
+    const orders = getStoredOrders();
+
+    const orderIndex = orders.findIndex((o) => o.id === id);
+    if (orderIndex > -1) {
+      orders[orderIndex].status = status;
+      saveStoredOrders(orders);
+      return HttpResponse.json(orders[orderIndex]);
+    }
+
+    return new HttpResponse(null, { status: 404 });
+  }),
 ];
