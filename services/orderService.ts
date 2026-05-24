@@ -24,7 +24,7 @@ const mockOrders: PaymentOrder[] = [
     amount: 4156456,
     concept: "Licencias",
     createdAt: "2026-05-21",
-    status: "APROBADA",
+    status: "RECHAZADA",
   },
   {
     id: "4",
@@ -32,7 +32,7 @@ const mockOrders: PaymentOrder[] = [
     amount: 454551,
     concept: "Licencias",
     createdAt: "2026-05-21",
-    status: "APROBADA",
+    status: "PAGADA",
   },
   {
     id: "5",

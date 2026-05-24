@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { useOrderStore } from "../stores/orders";
+import { useOrderStore } from "~/stores/orders";
 
 const ordersStore = useOrderStore();
 
+const handleOrderClick = (order: any) => {
+    console.log("Orden seleccionada:", order);
+};
+
+// Usamos onMounted para disparar la acción del store
 onMounted(() => {
     ordersStore.loadOrders();
 });
@@ -14,17 +19,20 @@ onMounted(() => {
             Gestión de Órdenes de Pago
         </h1>
 
-        <LoadingState v-if="ordersStore.loading" />
         <ErrorState
-            v-else-if="ordersStore.error"
+            v-if="ordersStore.error"
             :message="ordersStore.error"
+            @retry="ordersStore.loadOrders"
         />
+
+        <LoadingState v-else-if="ordersStore.loading" />
+
         <EmptyState v-else-if="ordersStore.orders.length === 0" />
 
         <OrderList
             v-else
             :orders="ordersStore.orders"
-            @order-click="(order) => console.log('Click en:', order)"
+            @order-click="handleOrderClick"
         />
     </div>
 </template>

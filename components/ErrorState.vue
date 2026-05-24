@@ -1,9 +1,16 @@
-<script setup lang="ts">
-defineProps<{ message: string }>();
-</script>
-
 <template>
-    <div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
-        <strong>Error:</strong> {{ message }}
+    <div class="p-4 text-center">
+        <p class="text-red-600 mb-4">{{ message }}</p>
+        <button
+            @click="$emit('retry')"
+            class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        >
+            Reintentar
+        </button>
     </div>
 </template>
+
+<script setup lang="ts">
+defineProps<{ message: string }>();
+defineEmits(["retry"]);
+</script>
